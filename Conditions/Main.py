@@ -40,3 +40,13 @@ value = 0
 while value < 5:
     print('My value is ' + str(value))
     value += 1;
+
+print('')
+
+yourNumber = 10;
+for number in range(-15,15):
+    if number is yourNumber:
+        print('I find your number, is ', number)
+        break
+    else:
+        print(number, 'No is your number')
