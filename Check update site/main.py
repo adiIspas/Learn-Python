@@ -5,6 +5,7 @@ import time
 
 def check_site(url, number_urls):
     urls = 0
+    urls_founds = []
     current_urls = ["pdf/2016/cazare/Planificare_sedinte_cazare_2016-2017.pdf",
                     "pdf/2016/cazare/ANUNT_CAZARE_2016-2017.pdf",
                     "pdf/2016/cazare/CERERE_CAZARE_2016-2017.pdf",
@@ -15,15 +16,16 @@ def check_site(url, number_urls):
 
     soup = BeautifulSoup(plain_text, 'html.parser')
 
+    found = False
     for link in soup.findAll('a'):
         href = link.get('href')
 
         if href.find('pdf/2016/cazare') is not -1 and href not in current_urls:
-            urls += 1
-            print(href)
+            found = True
+            urls_founds.append(href)
 
-    if urls > number_urls:
-        return 1
+    if found is True:
+        return urls_founds
     else:
         return 0
 
@@ -33,9 +35,11 @@ number_urls = 4
 print('Program start on', time.ctime())
 print('Now working ...')
 while True:
-    result = check_site(url, number_urls)
+    results = check_site(url, number_urls)
 
-    if result is 1:
+    if results is not 0:
         print('Site is changed on', time.ctime())
-        webbrowser.open(url)
+
+        for new_url in results:
+            webbrowser.open(url + new_url)
         break
