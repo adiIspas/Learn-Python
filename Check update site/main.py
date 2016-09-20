@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import webbrowser
 import time
 
+
 def check_site(url):
     urls_founds = []
     current_urls = ["pdf/2016/cazare/Planificare_sedinte_cazare_2016-2017.pdf",
@@ -28,16 +29,16 @@ def check_site(url):
     else:
         return 0
 
-url = 'http://fmi.unibuc.ro/ro/'
+base_url = 'http://fmi.unibuc.ro/ro/'
 
 print('Program start on', time.ctime())
 print('Now working ...')
 while True:
-    results = check_site(url)
+    results = check_site(base_url)
 
     if results is not 0:
         print('Site is changed on', time.ctime())
 
-        for new_url in results:
-            webbrowser.open(url + new_url)
+        for file_url in results:
+            webbrowser.open(base_url + file_url)
         break
